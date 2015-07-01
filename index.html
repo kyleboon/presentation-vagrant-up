@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Micro-services with Dropwizard</title>
+    <title>Vagrant Up!</title>
 
     <meta name="author" content="Kyle Boon"/>
     <meta name="description" content=""/>
@@ -50,7 +50,7 @@
                 <section>
                     <h2>Kyle Boon</h2>
                     <span style="float: left;">
-                        <div style="text-align: right;">Team Lead @ Bloomhealth</div>
+                        <div style="text-align: right;">Senior Software Engineer @SmartThings</div>
                         <div style="text-align: right;">kyle.f.boon@gmail.com</div>
                         <div style="text-align: right;">@kyleboon</div>
                         <div style="text-align: right;">http://www.kyleboon.org</div>
@@ -61,7 +61,7 @@
                     </span>
                 </section>
                 <section>
-                    <h3>Vagrant creates <strong>Virtual clouds</strong> for your workstation</h3>
+                    <h3>Vagrant creates <strong>Virtual clouds</strong> for your workstation. It's <strong>opensource</strong> and <strong>multi-platform</strong></h3>
                 </section>
                 <section>
                     <quoteblock><p>It works on my machine</p><p>-- every developer</p></quoteblock>
@@ -70,33 +70,61 @@
                     <h3>Are you a <strong>full stack</strong> developer?</h3>
                 </section>
                 <section>
-                    <img src="images/application-breakdown.png"/>
-                </section>
-                <section>
-                    <h3>Devops is about culture; Vagrant is an enabling technology</h3>
+                    <h3>Wraps different virtual machine providers with a single command to create, provision and destroy machines.</h3>
                 </section>
                 <section>
                     <h2>Your first Vagrant image</h2>
                     <pre><code data-trim contenteditable>
-$ vagrant init hashicorp/precise32
+$ vagrant init precise64
 $ vagrant up
                     </code></pre>
+                </section>
+                <section>
+                    <h2>Main Concepts</h2>
+                    <ul>
+                        <li>Boxes</li>
+                        <li>Vagrantfile</li>
+                        <li>command line tool</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Boxes</h2>
+                    <ul>
+                        <li>Template used to start a virtual machine</li>
+                        <li>You can create your own</li>
+                        <li>https://vagrantcloud.com/</li>
+                        <li>http://www.vagrantbox.es/</li>
+                    </ul>
                 </section>
                 <section>
                     <pre><code data-trim contenteditable>
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
-VAGRANTFILE_API_VERSION = "2"
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "hashicorp/precise32"
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "precise64"
 end
                     </code></pre>
                 </section>
                 <section>
-                    <h2>Main Commands</h2>
+                    <h2>Vagrantfile</h2>
+                    <ul>
+                        <li>Ruby DSL for modifying and provisioning a box</li>
+                        <li>Controls networking, memory, syched folders etc</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Vagrant CLI</h2>
                     <table>
                         <tr><td>box</td><td>manages boxes: installation, removal, etc.</td></tr>
                         <tr><td>destroy</td><td>stops and deletes all traces of the vagrant machine</td></tr>
@@ -111,21 +139,16 @@ end
                         <tr><td>up</td><td>starts and provisions the vagrant environment</td></tr>
                     </table>
                 </section>
-                <section>
-                    <h2>Boxes</h2>
-                    <ul>
-                        <li>Base images to start a virtual machine</li>
-                        <li>https://vagrantcloud.com/</li>
-                    </ul>
-                </section>
+               
                 <section>
                     <h2>Providers</h2>
                     <ul>
-                        <li>All boxes are provider specific</li>
                         <li>VirtualBox</li>
                         <li>VmWare</li>
                         <li>Hyper-V</li>
-                        <li>Cloud providers</li>
+                        <li>Amazon</li>
+                        <li>Open stack</li>
+                        <li>Docker</li>
                     </ul>
                 </section>
                 <section>
@@ -168,9 +191,6 @@ Vagrant.configure("2") do |config|
   end
 end</code></pre>
                 </section>
-                <section>
-                    <h3>What's the big deal so far?</h3>
-                </section>         
                 <section>
                     <h3>Provisioning</h3>
                     <ul>
@@ -217,23 +237,33 @@ config.vm.provision :chef_solo do |chef|
   end</code></pre>    
                 </section>
                 <section>
+                    <h3>Plugins</h3>
+                    <ul>
+                        <li>https://github.com/mitchellh/vagrant/wiki/Available-Vagrant-Plugins</li>
+                        <li>vagrant-triggers</li>
+                        <li>vagrant-digitalocean</li>
+                        <li>vagrant-guestip</li>
+                    </ul>
+                </section>
+                <section>
+                    <h3>Containers vs VMs</h3>
+                </section>
+                 <section>
+                    <pre><code data-trim contenteditable>
+vagrant up --provider=docker
+</code></pre>
+                </section>
+                <section>
+                    <h3>Provide scripts using vagrant ssh -c</h3>
+                </section>
+                <section>
+                    <h3>Dev, QA, and your laptop can be clones of production</h3>
+                </section>
+                <section>
                     <h3><a href="https://github.com/rails/rails-dev-box">Rails Dev Box</a></h3>
                 </section>
                 <section>
-                    <h3>Related Projects</h3>
-                    <ul>
-                        <li>Docker</li>
-                        <li>Packer</li>
-                    </ul>
-                </section>
-                <section>
-                    <h3>Links</h3>
-                    <ul>
-                        <li><a href="vagrantup.com">Vagrant documentation</a></li>
-                        <li><a href="http://www.amazon.com/gp/product/1449335837/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1449335837&linkCode=as2&tag=vagrant-20">Vagrant: Up and Running</a></li>
-                        <li><a href="https://github.com/mitchellh/vagrant">Vagrant source</li>
-                        <li><a href="https://github.com/kyleboon/presentation-vagrant-up">This presentation</a></li>
-                    </ul>
+                    Vagrant Manager
                 </section>
             </div>
         </div>
